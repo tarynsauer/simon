@@ -1,0 +1,44 @@
+body {
+  height: 100%;
+  width: 450px;
+  margin: 0 auto;
+  background: #A9A9A9;
+}
+
+.board {
+  display: flex;
+  font-size: 0;
+  flex-wrap:wrap;
+  margin:-10px 0 0 -10px;
+}
+
+.square {
+  display: inline-block;
+  margin: 10px 0 0 10px;
+  flex-grow: 1;
+  height: 200px;
+  width: 40%;
+  opacity: 0.45;
+  transition: opacity 1s;
+}
+
+.bright {
+  opacity: 1;
+  transition: opacity 0.15s;
+}
+
+.yellow {
+  background: yellow;
+}
+
+.blue {
+  background: blue;
+}
+
+.red {
+  background: red;
+}
+
+.green {
+  background: green;
+}
