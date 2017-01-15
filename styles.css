@@ -18,13 +18,22 @@ body {
   flex-grow: 1;
   height: 200px;
   width: 40%;
-  opacity: 0.45;
-  transition: opacity 1s;
+  opacity: 0.25;
+  transition: opacity .5s ease-in-out;
 }
 
 .bright {
-  opacity: 1;
-  transition: opacity 0.15s;
+  animation: fadeinout 0.75s linear forwards;
+}
+
+@-webkit-keyframes fadeinout {
+  0%,100% { opacity: 0.25; }
+  50% { opacity: 1; }
+}
+
+@keyframes fadeinout {
+  0%,100% { opacity: 0.25; }
+  50% { opacity: 1; }
 }
 
 .yellow {
