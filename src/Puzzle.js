@@ -1,4 +1,7 @@
-const guesses = [];
+let puzzle = [];
+let guesses = [];
+const speedLevel = 620;
+const puzzleLength = 4;
 
 function sleep (time) {
   return new Promise((resolve) => setTimeout(resolve, time));
@@ -9,9 +12,8 @@ function randomId(squareCount) {
 }
 
 function generatePuzzle(seqLength) {
-  const puzzle = [];
   while(puzzle.length < seqLength) {
-    puzzle.push(randomId(4));
+    puzzle.push(randomId(puzzleLength));
   }
   return puzzle;
 }
@@ -21,27 +23,33 @@ function toggle(elem, className) {
 }
 
 function selectPuzzleSquares(puzzle) {
-  if(puzzle.length != 0) {
-    const id = puzzle[0];
-    const elem = document.querySelector("[data-id='" + `${id}` + "']");
+  sleep(speedLevel).then(() => {
+    if(puzzle.length != 0) {
+      const id = puzzle[0];
+      const elem = document.querySelector(`[data-id='${id}']`);
+      selectSquare(elem, puzzle);
+    }
+  });
+}
+
+function selectSquare(elem, puzzle) {
+  toggle(elem, "bright");
+  sleep(speedLevel).then(() => {
     toggle(elem, "bright");
-    sleep(750).then(() => {
-      toggle(elem, "bright");
-      puzzle.shift()
-      selectPuzzleSquares(puzzle);
-    });
-  }
+    puzzle.shift()
+    selectPuzzleSquares(puzzle);
+  });
 }
 
 function runSequence() {
-  const puzzle = generatePuzzle(4);
+  puzzle = generatePuzzle(puzzleLength);
   selectPuzzleSquares(puzzle);
 }
 
-function selectSquare(event) {
+function highlightSelectedSquare(event) {
   const elem = event.target;
   toggle(elem, "bright");
-  sleep(750).then(() => {
+  sleep(speedLevel).then(() => {
     toggle(elem, "bright");
     guesses.push(elem.dataset.id);
   });
@@ -51,9 +59,7 @@ const squares = document.getElementsByClassName("square");
 const start = document.getElementById("start");
 
 for (var square of squares) {
-  square.addEventListener("click", selectSquare, false);
+  square.addEventListener("click", highlightSelectedSquare, false);
 }
 
 start.addEventListener("click", runSequence, false);
-
-
